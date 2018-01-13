@@ -1,8 +1,7 @@
 var running = null;
 
-
 class Timer {
-  constructor() {
+  constructor(element) {
     this.time = 0;
     this.elapsedTime = '0.0';
     this.elementRef = document.getElementById(element);
