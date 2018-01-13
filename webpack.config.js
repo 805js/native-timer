@@ -1,14 +1,24 @@
+var path = require('path')
+var HtmlWebpackPlugin = require('html-webpack-plugin')
+
 module.exports = {
-  entry: ["./src/index.js"],
+  entry: './src/index.js',
   output: {
-    filename: "./src/bundle.js"
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
   },
   module: {
-
-    loaders: [
+    rules: [
       {
-        test: [/\.js$/, /\.es6$/],
-        exclude: /node_modules/,
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.scss$/,
+        loaders: ["style-loader", "css-loader", "sass-loader"]
+      },
+      {
+        test: /\.js$/,
         loader: 'babel-loader',
         query: {
           presets: ['es2015']
@@ -16,26 +26,5 @@ module.exports = {
       }
     ]
   },
-  resolve: {
-    extensions: ['.js']
-  }
-};
-
-
-// var debug = process.env.NODE_ENV !== "production";
-// var webpack = require('webpack');
-//
-// module.exports = {
-//   context: __dirname,
-//   devtool: debug ? "inline-sourcemap" : null,
-//   entry: "./src/index.js",
-//   output: {
-//     path: __dirname + "/src",
-//     filename: "bundle.min.js"
-//   },
-//   plugins: debug ? [] : [
-//     // new webpack.optimize.DedupePlugin(),
-//     // new webpack.optimize.OccurenceOrderPlugin(),
-//     // new webpack.optimize.UglifyJsPlugin({ mangle: false, sourcemap: false }),
-//   ],
-// };
+  plugins: [new HtmlWebpackPlugin({template: 'src/index.html'})]
+}

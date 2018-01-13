@@ -1,3 +1,5 @@
+import css from './style/style.scss'
+
 var running = null;
 
 class Timer {
