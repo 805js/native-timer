@@ -1,45 +1,14 @@
 import css from './style/style.scss'
 
+import {Timer} from "./timer";
+
 var running = null;
 
-class Timer {
-  constructor(element) {
-    this.time = 0;
-    this.elapsedTime = '0.0';
-    this.elementRef = document.getElementById(element);
-  }
-
-  startTimer () {
-    this.time += 100;
-    this.elapsedTime = Math.floor(this.time / 100) / 10;
-    this.elementRef.innerHTML = parseFloat(this.elapsedTime).toFixed(1);
-  };
-
-  resetTimer () {
-    this.time = 0;
-    this.elapsedTime = '0.0';
-    this.elementRef.innerHTML = this.elapsedTime;
-  };
-
-  markLap (value) {
-    var element = document.createElement('li');
-    var lapsElement = document.getElementById('lap-list');
-    element.innerHTML = parseFloat(Math.floor(value / 100) / 10).toFixed(1);
-    lapsElement.appendChild(element);
-  };
-
-  resetLapList () {
-    var lapsElement = document.getElementById('lap-list');
-    while(lapsElement.hasChildNodes()){
-      lapsElement.removeChild(lapsElement.lastChild);
-    }
-  };
-}
 
 var timer = new Timer('timer-display');
 
 /*
- * Listen for start click
+ * Listen for start click and tell timer what to do
  */
 document.getElementById("startBtn").addEventListener('click', function (evt) {
   if(running) {
@@ -52,7 +21,7 @@ document.getElementById("startBtn").addEventListener('click', function (evt) {
 });
 
 /*
- * Listen for stop click
+ * Listen for stop click and tell timer what to do
  */
 document.getElementById("stopBtn").addEventListener('click', function (evt) {
   clearInterval(running);
@@ -61,7 +30,7 @@ document.getElementById("stopBtn").addEventListener('click', function (evt) {
 });
 
 /*
- * Listen for reset click
+ * Listen for reset click and tell timer what to do
  */
 document.getElementById("resetBtn").addEventListener('click', function (evt) {
   if (running) {
@@ -74,7 +43,7 @@ document.getElementById("resetBtn").addEventListener('click', function (evt) {
 });
 
 /*
- * Listen for mark click
+ * Listen for mark click and tell timer what to do
  */
 document.getElementById("markTimeBtn").addEventListener('click', function (evt) {
   timer.markLap(timer.time);
