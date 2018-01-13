@@ -4,7 +4,6 @@
   "description": "A Native JavaScript timer that works just like a stopwatch. ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js"
   },
   "repository": {
