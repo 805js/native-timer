@@ -4,7 +4,8 @@
   "description": "A Native JavaScript timer that works just like a stopwatch. ",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,8 @@
     "node-sass": "^4.7.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0"
   },
   "dependencies": {}
 }
