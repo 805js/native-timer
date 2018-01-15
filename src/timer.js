@@ -7,16 +7,16 @@ export class Timer {
 
     document
         .getElementById('startBtn')
-        .addEventListener('click', this.handleStartClick.bind(this));
+        .addEventListener('click', this.handleStartClick.bind(this), false);
     document
         .getElementById('stopBtn')
-        .addEventListener('click', this.handleStopClick.bind(this));
+        .addEventListener('click', this.handleStopClick.bind(this), false);
     document
         .getElementById('resetBtn')
-        .addEventListener('click', this.handleResetClick.bind(this));
+        .addEventListener('click', this.handleResetClick.bind(this), false);
     document
         .getElementById('markTimeBtn')
-        .addEventListener('click', this.handleMarkTimeClick.bind(this));
+        .addEventListener('click', this.handleMarkTimeClick.bind(this), false);
   }
 
   handleStartClick(evt) {
@@ -47,6 +47,7 @@ export class Timer {
 
   handleMarkTimeClick(evt) {
     this.markLap(this.time);
+    evt.preventDefault();
   }
 
   startTimer() {
