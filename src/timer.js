@@ -1,4 +1,4 @@
-class Timer {
+export class Timer {
   constructor(element) {
     this.running = null;
     this.time = 0;
@@ -75,5 +75,3 @@ class Timer {
     }
   }
 }
-
-const timer = new Timer('timer-display');
