@@ -1,78 +1,73 @@
-var running = null;
-var app = document.getElementById('app');
-
-function Timer(element) {
-    this.time = 0;
-    this.elapsedTime = '0.0';
-    this.elementRef = document.getElementById(element);
-    this.startTimer = function () {
-        this.time += 100;
-        this.elapsedTime = Math.floor(this.time / 100) / 10;
-        this.elementRef.innerHTML = parseFloat(this.elapsedTime).toFixed(1);
-    };
-    this.resetTimer = function () {
+class Timer {
+    constructor(element) {
+        this.running = null;
         this.time = 0;
         this.elapsedTime = '0.0';
-        this.elementRef.innerHTML = this.elapsedTime;
-    };
-    this.markLap = function (value) {
-        var element = document.createElement('li');
-        var lapsElement = document.getElementById('lap-list');
-        element.innerHTML = parseFloat(Math.floor(value / 100) / 10).toFixed(1);
-        lapsElement.appendChild(element);
-    };
-    this.resetLapList = function () {
-        var lapsElement = document.getElementById('lap-list');
+        this.appRef = document.getElementById('app');
+        this.timerRef = document.getElementById('timer-display');
+
+        document
+            .getElementById('startBtn')
+            .addEventListener('click', this.handleStartClick.bind(this));
+        document
+            .getElementById('stopBtn')
+            .addEventListener('click', this.handleStopClick.bind(this));
+        document
+            .getElementById('resetBtn')
+            .addEventListener('click', this.handleResetClick.bind(this));
+        document
+            .getElementById('markTimeBtn')
+            .addEventListener('click', this.handleMarkTimeClick.bind(this));
+    }
+
+    handleStartClick(evt) {
+        this.appRef.classList.add('running');
+        if (this.running) {
+            return;
+        }
+        this.running = setInterval(() => {
+            this.time += 100;
+            this.elapsedTime = Math.floor(this.time / 100) / 10;
+            this.timerRef.innerHTML = parseFloat(this.elapsedTime).toFixed(1);
+        }, 100);
+    }
+
+    handleStopClick(evt) {
+        this.appRef.classList.remove('running');
+        clearInterval(this.running);
+        this.running = null;
+    }
+
+    handleResetClick(evt) {
+        this.appRef.classList.remove('running');
+        if (this.running) {
+            clearInterval(this.running);
+            this.running = null;
+        }
+
+        // Manage timer state
+        this.time = 0;
+        this.elapsedTime = '0.0';
+        this.timerRef.innerHTML = this.elapsedTime;
+
+        // manage view state
+        this.appRef.classList.remove('running');
+        const lapsElement = document.getElementById('lap-list');
         while (lapsElement.hasChildNodes()) {
             lapsElement.removeChild(lapsElement.lastChild);
         }
-    };
+    }
+
+    handleMarkTimeClick(evt) {
+        const element = document.createElement('li');
+        const lapsElement = document.getElementById('lap-list');
+        element.innerHTML = parseFloat(Math.floor(this.time / 100) / 10).toFixed(1);
+        app.classList.add('added-flash');
+        setTimeout(function () {
+            app.classList.remove('added-flash');
+        }, 50);
+        lapsElement.appendChild(element);
+    }
 }
 
-var timer = new Timer('timer-display');
-
-/*
- * Listen for start click
- */
-document.getElementById("startBtn").addEventListener('click', function (evt) {
-    if (running) {
-        return;
-    }
-    app.classList.add('running');
-    running = setInterval(function () {
-        timer.startTimer();
-    }, 100);
-});
-
-/*
- * Listen for stop click
- */
-document.getElementById("stopBtn").addEventListener('click', function (evt) {
-    clearInterval(running);
-    app.classList.remove('running');
-    running = null;
-});
-
-/*
- * Listen for reset click
- */
-document.getElementById("resetBtn").addEventListener('click', function (evt) {
-    if (running) {
-        clearInterval(running);
-        running = null;
-    }
-    app.classList.remove('running');
-    timer.resetTimer(); // Manage timer state
-    timer.resetLapList(); // manage view state
-});
-
-/*
- * Listen for mark click
- */
-document.getElementById("markTimeBtn").addEventListener('click', function (evt) {
-    timer.markLap(timer.time);
-    app.classList.add('added-flash');
-    setTimeout(function () {
-        app.classList.remove('added-flash');
-    }, 50);
-});
+const timer = new Timer();
