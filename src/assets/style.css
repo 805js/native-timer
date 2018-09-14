@@ -1,0 +1,119 @@
+/*Basic styles for layout and to make it more readable */
+@keyframes borderFlash {
+    from {
+        border-color: hsla(120, 50%, 50%, 0.5);
+    }
+    50% {
+        border-color: hsla(60, 100%, 50%, 0.9);
+    }
+}
+
+body {
+    background-color: aliceblue;
+    position: relative;
+    background: url(og-js.png) no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    position: relative;
+}
+
+#app {
+    font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 3px;
+    width: 75vw;
+    height: 75vh;
+    border: 25px solid hsla(170, 5%, 50%, 0.5);
+    background-color: hsla(175, 50%, 95%, 0.6);
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    /* layout */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 4%;
+    grid-column-gap: 4%;
+
+}
+
+#app.running {
+    border-color: hsla(120, 50%, 50%, 0.5);
+}
+
+#app.running.added-flash {
+    border-color: hsla(60, 100%, 50%, 0.9);
+    animation: borderFlash 50ms ease-in-out;
+}
+
+#timer-display {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 100px;
+}
+
+#timer-actions {
+    grid-row-end: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#timer-actions > button {
+    flex: 1 1 auto;
+    color: #202129;
+    background-color: #f2f2f2;
+    font-size: 19px;
+    transition: all 0.5s ease-in-out;
+    max-height: 60px;
+    min-height: 60px;
+    border: none;
+    border-right: 1px solid #e1e2e2;
+}
+
+#timer-actions > button:focus {
+    outline: none;
+}
+
+#timer-actions > button:hover {
+    color: #921202;
+    opacity: 1;
+    animation: 50ms;
+}
+
+#timer-actions > button:last-child {
+    border-radius: 0 6px 6px 0;
+    border-right: none;
+}
+
+#timer-laps {
+    grid-column-start: 2;
+    grid-row-start: 1;
+    grid-row-end: 3;
+    overflow-y: scroll;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    list-style-type: none;
+}
+
+li:nth-child(odd) {
+    background: hsla(0, 5%, 25%, 0.55);
+}
+
+li:nth-child(even) {
+    background: hsla(180, 5%, 75%, 0.55);
+}
